@@ -9,7 +9,7 @@ from pathlib import Path
 # CONFIG
 # =========================
 INPUT_FILES = [
-    # r"1200023154PL_MedPart.xlsx",
+    r"1200023154PL_MedPart.xlsx",
     r"1200023154PL_Medline.xlsx",
 ]
 

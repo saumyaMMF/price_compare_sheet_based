@@ -11,7 +11,8 @@ from pathlib import Path
 # =========================
 # CONFIGURATION
 # =========================
-INPUT_WORKBOOK = Path("Cost_vs_Price_Comparison.xlsx")
+# INPUT_WORKBOOK = Path("Cost_vs_Price_Comparison.xlsx")
+INPUT_WORKBOOK = Path("Cost_vs_All_Masters.xlsx")
 SOURCE_SHEET = "Lot1A_Cost_Comparison"
 
 OUTPUT_WORKBOOK = Path("Cost_vs_Price_Comparison_split.xlsx")
