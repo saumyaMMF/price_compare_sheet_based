@@ -107,9 +107,9 @@ PRICE_SOURCES = [
         "price_field": "cost_price",
         "alias": "Cost Price",
         "additional_columns": {
-            "Product Name": "Cost Product Name",
-            "Item Name": "Cost Item Name",
-            "NDC Item Code": "Cost NDC Item Code",
+            # "Product Name": "Cost Product Name",
+            # "Item Name": "Cost Item Name",
+            # "NDC Item Code": "Cost NDC Item Code",
         },
     },
     {
@@ -255,9 +255,17 @@ comparison_no_uom, aliases_no_uom, stats_no_uom = build_comparison(JOIN_KEYS_NO_
 
 def compose_final_dataframe(base_df: pd.DataFrame, comparison_subset: pd.DataFrame, price_aliases: list[str]) -> pd.DataFrame:
     merged = base_df.merge(comparison_subset, on="__row_id", how="left")
+    merged = merged.merge(lot1a_proc[["__row_id", "lot1a_price"]], on="__row_id", how="left")
     merged = merged.drop(columns=["__row_id"])
 
-    price_columns = [col for col in merged.columns if "price" in col.lower()]
+    if "lot1a_price" in merged.columns and "Cost Price" in merged.columns:
+        merged["Profit Margin"] = merged["lot1a_price"] - merged["Cost Price"]
+
+    merged = merged.drop(columns=["lot1a_price"], errors="ignore")
+
+    price_columns = [
+        col for col in merged.columns if "price" in col.lower() or "margin" in col.lower()
+    ]
     non_price_columns = [col for col in merged.columns if col not in price_columns]
     return merged[non_price_columns + price_columns]
 
