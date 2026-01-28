@@ -1,3 +1,7 @@
+"""
+this script is used to merge multiple sheets into one
+"""
+
 import pandas as pd
 from pathlib import Path
 
